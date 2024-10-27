@@ -37,26 +37,19 @@
    ```
 
 2. 安装依赖：
-    - 安装前端依赖：
     ```bash
-    cd frontend
-    npm install
-    ```
-    - 安装后端依赖：
-    ```bash
-    cd ../backend
-    npm install
+    sh scripts/install.sh
     ```
 
 3. 运行项目：
     - 运行前端：
     ```bash
-    cd ../frountend
+    cd ../frount
     npm start
     ```
     - 运行后端：
     ```bash
-    cd ../backend
+    cd ../node
     npm start
     ```
 
