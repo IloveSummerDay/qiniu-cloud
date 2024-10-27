@@ -1,14 +1,15 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors')
+import bodyParser from "body-parser";
+import cors from "cors";
+import express from "express";
+
+import testRouter from './test.js';
 
 const app = express();
-
 app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
-// app.use('/', )
+app.use('/', testRouter)
 
 
 
