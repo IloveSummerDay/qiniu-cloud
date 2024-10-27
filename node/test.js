@@ -1,106 +1,84 @@
 import express from 'express';
-import { Octokit } from "octokit";
+import { RawDataGetter } from './handler/RawDataGetter.js';
+import { rest_api_url_map } from './rest_api_model_manager.js';
 
 const owner = "CoherentLabs"
 const repo = "GameUIComponents"
 
 const router = express.Router();
 
-const octokit = new Octokit({
-    // auth: 'YOUR_TOKEN'
+// repo
+router.get('/repo-summary', async (req, res) => {
+    const raw_data_getter = new RawDataGetter({ auth: process.env.auth })
+    res.json(await raw_data_getter.get_repo_basis_info(owner, repo, rest_api_url_map.repo_summary))
 })
 
-
 router.get('/stars', async (req, res) => {
-
-    const info = await octokit.request('GET /repos/{owner}/{repo}/stargazers', {
-        owner,
-        repo,
-        headers: {
-            'X-GitHub-Api-Version': '2022-11-28',
-            'accept': "application/vnd.github+json"
-        }
-    })
-    res.json(info)
+    const raw_data_getter = new RawDataGetter({ auth: process.env.auth })
+    res.json(await raw_data_getter.get_repo_basis_info(owner, repo, rest_api_url_map.stars))
 })
 
 router.get('/forks', async (req, res) => {
-    const info = await octokit.request('GET /repos/{owner}/{repo}/forks', {
-        owner,
-        repo,
-        headers: {
-            'X-GitHub-Api-Version': '2022-11-28',
-            'accept': "application/vnd.github+json"
-        }
-    })
-    res.json(info)
+    const raw_data_getter = new RawDataGetter({ auth: process.env.auth })
+    res.json(await raw_data_getter.get_repo_basis_info(owner, repo, rest_api_url_map.forks))
 })
 
 router.get('/subscribers', async (req, res) => {
-    const info = await octokit.request('GET /repos/{owner}/{repo}/subscribers', {
-        owner,
-        repo,
-        headers: {
-            'X-GitHub-Api-Version': '2022-11-28',
-            'accept': "application/vnd.github+json"
-        }
-    })
-    res.json(info)
+    const raw_data_getter = new RawDataGetter({ auth: process.env.auth })
+    res.json(await raw_data_getter.get_repo_basis_info(owner, repo, rest_api_url_map.subscribers))
 })
 
 router.get('/pulls', async (req, res) => {
-    const info = await octokit.request('GET /repos/{owner}/{repo}/pulls', {
-        owner,
-        repo,
-        headers: {
-            'X-GitHub-Api-Version': '2022-11-28',
-            'accept': "application/vnd.github+json"
-        }
-    })
-    res.json(info)
+    const raw_data_getter = new RawDataGetter({ auth: process.env.auth })
+    res.json(await raw_data_getter.get_repo_basis_info(owner, repo, rest_api_url_map.pulls, { state: "open" }))
 })
 
+router.get('/languages', async (req, res) => {
+    const raw_data_getter = new RawDataGetter({ auth: process.env.auth })
+    res.json(await raw_data_getter.get_repo_basis_info(owner, repo, rest_api_url_map.languages))
+})
+
+router.get('/contributors', async (req, res) => {
+    const raw_data_getter = new RawDataGetter({ auth: process.env.auth })
+    res.json(await raw_data_getter.get_repo_basis_info(owner, repo, rest_api_url_map.contributors))
+})
+
+router.get('/topics', async (req, res) => {
+    const raw_data_getter = new RawDataGetter({ auth: process.env.auth })
+    res.json(await raw_data_getter.get_repo_basis_info(owner, repo, rest_api_url_map.topics))
+})
+
+router.get('/commits', async (req, res) => {
+    const raw_data_getter = new RawDataGetter({ auth: process.env.auth })
+    res.json(await raw_data_getter.get_repo_basis_info(owner, repo, rest_api_url_map.commits))
+})
+
+
+
+
+// user
 router.get('/user-info', async (req, res) => {
-    const info = await octokit.request('GET /users/{username}', {
-        username : "ohmyzsh",
-        headers: {
-            'X-GitHub-Api-Version': '2022-11-28',
-            'accept': "application/vnd.github+json"
-        }
-    })
-    res.json(info)
+    const raw_data_getter = new RawDataGetter({ auth: process.env.auth })
+    res.json(await raw_data_getter.get_user_basis_info(owner, rest_api_url_map.username_users))
 })
 
 router.get('/followers', async (req, res) => {
-    const info = await octokit.request('GET /user/followers', {
-        headers: {
-            'X-GitHub-Api-Version': '2022-11-28',
-            'accept': "application/vnd.github+json"
-        }
-    })
-    res.json(info)
+    const raw_data_getter = new RawDataGetter({ auth: process.env.auth })
+    res.json(await raw_data_getter.get_user_basis_info(owner, rest_api_url_map.username_followers))
 })
 
 router.get('/following', async (req, res) => {
-    const info = await octokit.request('GET /user/following', {
-        headers: {
-            'X-GitHub-Api-Version': '2022-11-28',
-            'accept': "application/vnd.github+json"
-        }
-    })
-    res.json(info)
+    const raw_data_getter = new RawDataGetter({ auth: process.env.auth })
+    res.json(await raw_data_getter.get_user_basis_info(owner, rest_api_url_map.username_following))
 })
 
 router.get('/social-accounts', async (req, res) => {
-    const info = await octokit.request('GET /users/{username}/social_accounts', {
-        username: 'IloveSummerDay',
-        headers: {
-            'X-GitHub-Api-Version': '2022-11-28',
-            'accept': "application/vnd.github+json"
-        }
-    })
-    res.json(info)
+    const raw_data_getter = new RawDataGetter({ auth: process.env.auth })
+    res.json(await raw_data_getter.get_user_basis_info(owner, rest_api_url_map.social_accounts))
 })
+
+
+
 
 
 export default router;

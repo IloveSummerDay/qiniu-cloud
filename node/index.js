@@ -1,9 +1,11 @@
+import dotenvx from "@dotenvx/dotenvx";
 import bodyParser from "body-parser";
 import cors from "cors";
 import express from "express";
 
 import testRouter from './test.js';
 
+dotenvx.config()
 const app = express();
 app.use(cors())
 app.use(bodyParser.json())
