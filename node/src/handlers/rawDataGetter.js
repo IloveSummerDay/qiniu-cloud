@@ -1,5 +1,4 @@
 import { Octokit } from "octokit";
-import { rest_api_url_map } from "../utils/restApiModelManager";
 
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 export class RawDataGetter {
@@ -19,11 +18,12 @@ export class RawDataGetter {
     /**
      * @param {string} owner - 仓库所有者的用户名。
      * @param {string} repo - 仓库的名称。
+     * @param {string} url - GitHub API URL - stars | forks | subscribers | pulls。
      * @param {object} otherArgs - 其他查询参数
      * @return {Promise} 包含请求结果的Promise对象。
      */
-    async getRepoInfo(owner, repo, otherArgs = {}) {
-        return await this.octokit.request(rest_api_url_map.repo_summary, {
+    async getRepoInfo(owner, repo, url, otherArgs = {}) {
+        return await this.octokit.request(url, {
             headers: this.headers,
             owner,
             repo,
@@ -33,11 +33,12 @@ export class RawDataGetter {
 
     /**
      * @param {string} username - 仓库所有者的用户名。
+     * @param {string} url - GitHub API URL - followers | following | users。
      * @param {object} other_args - 其他查询参数
      * @return {Promise} 包含请求结果的Promise对象。
      */
-    async getRepoStars(username, other_args) {
-        return await this.octokit.request(rest_api_url_map.username_users, {
+    async getRepoStars(username, url, other_args) {
+        return await this.octokit.request(url, {
             headers: this.headers,
             username,
             ...other_args,
