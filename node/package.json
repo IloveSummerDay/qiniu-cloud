@@ -2,11 +2,11 @@
   "name": "qiniu",
   "version": "1.0.0",
   "description": "本项目为参加上海七牛信息技术有限公司举办的第三年 1024 创作节",
-  "main": "index.js",
+  "main": "src/app.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "dotenvx run -- nodemon index.js"
+    "start": "dotenvx run -- nodemon node/src/app.js"
   },
   "author": "",
   "license": "ISC",
