@@ -48,7 +48,7 @@ export class RawDataGetter {
      * @param {string} url - 拼接查询参数后的url
      * @return {Promise} 包含请求结果的Promise对象。
      */
-    async getUserViaCriteria(url) {
+    async getUsersViaCriteria(url) {
         return await this.octokit.request(url, {
             headers: this.headers,
         })

@@ -11,7 +11,7 @@ export const rest_api_url_map = {
     commits: 'GET /repos/{owner}/{repo}/commits',
 
     // user
-    search_users: 'GET /search/{username}',
+    search_users_via_criteria: 'GET /search/users',
     username_users: 'GET /users/{username}',
     username_followers: 'GET /users/{username}/followers',
     username_following: 'GET /users/{username}/following',
