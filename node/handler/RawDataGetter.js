@@ -1,19 +1,17 @@
-import { Octokit } from "octokit";
-
-const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
+import { Octokit } from 'octokit'
 
 export class RawDataGetter {
     constructor(options) {
         this.options = {
-            auth: GITHUB_TOKEN,
-        };
+            auth: process.env.GITHUB_TOKEN,
+        }
 
-        Object.assign(this.options, options);
-        this.octokit = new Octokit({ auth: this.options.auth });
+        Object.assign(this.options, options)
+        this.octokit = new Octokit({ auth: this.options.auth })
         this.headers = {
-            "X-GitHub-Api-Version": "2022-11-28",
-            accept: "application/vnd.github+json",
-        };
+            'X-GitHub-Api-Version': '2022-11-28',
+            accept: 'application/vnd.github+json',
+        }
     }
 
     /**
@@ -29,7 +27,7 @@ export class RawDataGetter {
             owner,
             repo,
             ...otherArgs,
-        });
+        })
     }
 
     /**
@@ -43,12 +41,16 @@ export class RawDataGetter {
             headers: this.headers,
             username,
             ...otherArgs,
-        });
+        })
     }
 
+    /**
+     * @param {string} url - 拼接查询参数后的url
+     * @return {Promise} 包含请求结果的Promise对象。
+     */
     async getUserViaCriteria(url) {
         return await this.octokit.request(url, {
             headers: this.headers,
-        });
+        })
     }
 }
