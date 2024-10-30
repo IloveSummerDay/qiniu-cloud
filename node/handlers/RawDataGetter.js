@@ -15,10 +15,10 @@ export class RawDataGetter {
     }
 
     /**
-     * @param {string} owner - 仓库所有者的用户名。
-     * @param {string} repo - 仓库的名称。
-     * @param {string} url - GitHub API URL - stars | forks | subscribers | pulls。
-     * @param {object} otherArgs - 其他查询参数
+     * @param {String} owner - 仓库所有者的用户名。
+     * @param {String} repo - 仓库的名称。
+     * @param {String} url - GitHub API URL - stars | forks | subscribers | pulls。
+     * @param {Object} otherArgs - 其他查询参数
      * @return {Promise} 包含请求结果的Promise对象。
      */
     async getRepoBasisInfo(owner, repo, url, otherArgs = {}) {
@@ -31,9 +31,9 @@ export class RawDataGetter {
     }
 
     /**
-     * @param {string} username - 仓库所有者的用户名。
-     * @param {string} url - GitHub API URL - followers | following | users
-     * @param {object} otherArgs - 其他查询参数
+     * @param {String} username - 仓库所有者的用户名。
+     * @param {String} url - GitHub API URL - followers | following | users
+     * @param {Object} otherArgs - 其他查询参数
      * @return {Promise} 包含请求结果的Promise对象。
      */
     async getUserBasisInfo(username, url, otherArgs = {}) {
@@ -45,7 +45,7 @@ export class RawDataGetter {
     }
 
     /**
-     * @param {string} url - 拼接查询参数后的url
+     * @param {String} url - 拼接查询参数后的url
      * @return {Promise} 包含请求结果的Promise对象。
      */
     async getUsersViaCriteria(url) {
