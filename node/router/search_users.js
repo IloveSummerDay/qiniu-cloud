@@ -1,5 +1,5 @@
 import express from 'express'
-import { RawDataGetter } from '../handler/RawDataGetter.js'
+import { RawDataGetter } from '../handlers/RawDataGetter.js'
 import { rest_api_url_map } from '../rest_api_model_manager.js'
 import { get_talent_value } from '../utils.js'
 
@@ -22,18 +22,19 @@ router.get('/search-users-via-criteria', async (req, res) => {
 
     let last_users_info_list = []
     for (const user_info of users_info_list) {
-        const repos_url = user_info.repos_url
-        const talent_value = await get_talent_value(repos_url)
-
         const login_name = user_info.login
         const avatar_url = user_info.avatar_url
         const html_url = user_info.html_url
+        const followers = user_info.followers
+        const repos_url = user_info.repos_url
+        const talent_value = await get_talent_value(repos_url, followers)
 
         // need add more info about a user
         last_users_info_list.push({
             login_name,
             avatar_url,
             html_url,
+            followers,
             talent_value: talent_value,
         })
     }

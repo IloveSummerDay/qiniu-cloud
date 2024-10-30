@@ -4,6 +4,6 @@
  * @return {Number} repoValue - 项目价值
  */
 export const calculateRepoValue = (repoImportance, repoContribution) => {
-    const repoValue = repoImportance * repoContribution;
-    return repoValue;
+    const repoValue = repoImportance * repoContribution
+    return repoValue
 }

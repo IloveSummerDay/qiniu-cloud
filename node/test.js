@@ -1,9 +1,9 @@
 import express from 'express'
-import { RawDataGetter } from './handler/RawDataGetter.js'
+import { RawDataGetter } from './handlers/RawDataGetter.js'
 import { rest_api_url_map } from './rest_api_model_manager.js'
 
-const owner = 'CoherentLabs'
-const repo = 'GameUIComponents'
+const owner = 'octokit'
+const repo = 'octokit.js'
 
 const router = express.Router()
 
