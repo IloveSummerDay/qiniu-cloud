@@ -2,8 +2,8 @@ import express from 'express'
 import { RawDataGetter } from './handlers/RawDataGetter.js'
 import { rest_api_url_map } from './rest_api_model_manager.js'
 
-const owner = 'octokit'
-const repo = 'octokit.js'
+const owner = 'neverbiasu'
+const repo = 'qiniu-cloud'
 
 const router = express.Router()
 
