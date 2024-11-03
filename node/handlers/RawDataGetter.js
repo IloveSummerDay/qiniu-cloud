@@ -1,13 +1,8 @@
 import { Octokit } from 'octokit'
 
 export class RawDataGetter {
-    constructor(options) {
-        this.options = {
-            auth: process.env.GITHUB_TOKEN,
-        }
-
-        Object.assign(this.options, options)
-        this.octokit = new Octokit({ auth: this.options.auth })
+    constructor() {
+        this.octokit = new Octokit({ auth: process.env.GITHUB_TOKEN })
         this.headers = {
             'X-GitHub-Api-Version': '2022-11-28',
             accept: 'application/vnd.github+json',
@@ -52,5 +47,24 @@ export class RawDataGetter {
         return await this.octokit.request(url, {
             headers: this.headers,
         })
+    }
+
+    async getRepoAllPulls(user_name, repo_name) {
+        const pulls = await this.octokit.paginate(this.octokit.rest.pulls.list, {
+            owner: user_name,
+            repo: repo_name,
+            state: 'all',
+        })
+
+        return pulls
+    }
+
+    async getRepoList(user_name) {
+        const repo_list = await this.octokit.paginate(this.octokit.rest.repos.listForUser, {
+            username: user_name,
+            type: 'all',
+        })
+
+        return repo_list
     }
 }
