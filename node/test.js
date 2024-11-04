@@ -57,8 +57,6 @@ router.get('/commits', async (req, res) => {
     res.json(await raw_data_getter.getRepoBasisInfo(owner, repo, rest_api_url_map.commits))
 })
 
-
-
 // user
 router.get('/user-info', async (req, res) => {
     const raw_data_getter = new RawDataGetter()
@@ -78,6 +76,11 @@ router.get('/following', async (req, res) => {
 router.get('/social-accounts', async (req, res) => {
     const raw_data_getter = new RawDataGetter()
     res.json(await raw_data_getter.getUserBasisInfo(owner, rest_api_url_map.social_accounts))
+})
+
+router.get('/repo-list', async (req, res) => {
+    const raw_data_getter = new RawDataGetter()
+    res.json(await raw_data_getter.getRepoList(owner))
 })
 
 export default router
