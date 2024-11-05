@@ -83,4 +83,8 @@ router.get('/repo-list', async (req, res) => {
     res.json(await raw_data_getter.getRepoList(owner))
 })
 
+router.get('/readme', async (req, res) => {
+    const raw_data_getter = new RawDataGetter()
+    res.json(await raw_data_getter.getRepoREADME(owner, repo))
+})
 export default router
