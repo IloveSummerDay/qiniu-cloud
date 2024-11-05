@@ -49,6 +49,13 @@ export class RawDataGetter {
         })
     }
 
+    /**
+     * 获取指定仓库的所有拉取请求。
+     *
+     * @param {string} user_name - 仓库所有者的用户名。
+     * @param {string} repo_name - 仓库的名称。
+     * @returns {Promise<Array>} 返回包含所有拉取请求的Promise对象。
+     */
     async getRepoAllPulls(user_name, repo_name) {
         const pulls = await this.octokit.paginate(this.octokit.rest.pulls.list, {
             owner: user_name,
@@ -59,6 +66,12 @@ export class RawDataGetter {
         return pulls
     }
 
+    /**
+     * 获取指定用户的仓库列表
+     *
+     * @param {string} user_name - 用户名
+     * @returns {Promise<Array>} - 包含仓库信息的数组
+     */
     async getRepoList(user_name) {
         const repo_list = await this.octokit.paginate(this.octokit.rest.repos.listForUser, {
             username: user_name,
@@ -66,5 +79,21 @@ export class RawDataGetter {
         })
 
         return repo_list
+    }
+
+    /**
+     * 获取指定仓库的README文件内容。
+     *
+     * @param {string} owner - 仓库所有者的用户名。
+     * @param {string} repo - 仓库名称。
+     * @returns {Promise<Object>} 包含README文件内容的Promise对象。
+     */
+    async getRepoREADME(owner, repo) {
+        const readme = await this.octokit.request('GET /repos/{owner}/{repo}/readme', {
+            owner: owner,
+            repo: repo,
+        })
+
+        return readme
     }
 }

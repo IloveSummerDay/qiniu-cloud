@@ -9,6 +9,7 @@ export const rest_api_url_map = {
     contributors: 'GET /repos/{owner}/{repo}/contributors',
     topics: 'GET /repos/{owner}/{repo}/topics',
     commits: 'GET /repos/{owner}/{repo}/commits',
+    readme: 'GET /repos/{owner}/{repo}/readme',
 
     // user
     search_users_via_criteria: 'GET /search/users',
