@@ -2,6 +2,7 @@ import express from 'express'
 import { RawDataGetter } from './handlers/RawDataGetter.js'
 import { rest_api_url_map } from './rest_api_model_manager.js'
 import { get_repo_pulls } from './utils/get_repo_pulls.js'
+import { GenerateUserTalentEval } from './handlers/generateUserTalentEval.js'
 
 const owner = 'neverbiasu'
 const repo = 'qiniu-cloud'
@@ -87,4 +88,10 @@ router.get('/readme', async (req, res) => {
     const raw_data_getter = new RawDataGetter()
     res.json(await raw_data_getter.getRepoREADME(owner, repo))
 })
+
+router.get('/user-talent-eval', async (req, res) => {
+    const user_talent_eval = new GenerateUserTalentEval(owner)
+    res.json(await user_talent_eval.summaryByLLM())
+})
+
 export default router
