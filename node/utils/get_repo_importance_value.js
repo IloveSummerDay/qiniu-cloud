@@ -14,7 +14,7 @@ export const get_repo_importance_value = async (repo_list) => {
         }
     }
 
-    console.log('get_repo_importance_value - ', punblic_repo_sum, stars_sum, forks_sum, watchs_sum)
+    console.log('get_repo_importance_value.js - ', punblic_repo_sum, stars_sum, forks_sum, watchs_sum)
 
     const repo_importance_value = calculateRepoImportance(punblic_repo_sum, stars_sum, forks_sum, watchs_sum)
     return repo_importance_value
