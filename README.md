@@ -7,6 +7,10 @@
 [项目架构文档](./docs/structure.md)
 [项目运行文档](./docs/run.md)
 
+#### 演示视频
+
+[演示视频](https://github.com/IloveSummerDay/qiniu-cloud/blob/76d9c033f2f03420fe50d3f62ba91e557d3bce2e/docs/Demo%E6%BC%94%E7%A4%BA%E8%A7%86%E9%A2%91.mp4)
+
 ## 项目内容
 
 ### 基础功能（必须实现）
@@ -113,10 +117,6 @@ npm install
 ### 使用说明
 
 前端页面中可根据 GitHub 开发者用户名进行搜索，按 Nation 等领域进行划分，所得开发者评估信息列表根据 TalentValue 降序排序。
-
-#### 演示视频
-
-[演示视频](https://github.com/IloveSummerDay/qiniu-cloud/blob/76d9c033f2f03420fe50d3f62ba91e557d3bce2e/docs/Demo%E6%BC%94%E7%A4%BA%E8%A7%86%E9%A2%91.mp4)
 
 ### 联系方式
 
