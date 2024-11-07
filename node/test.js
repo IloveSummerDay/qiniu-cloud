@@ -1,10 +1,12 @@
 import express from 'express'
 import { RawDataGetter } from './handlers/RawDataGetter.js'
+import { ProjectNation } from './handlers/ProjectNation.js'
 import { rest_api_url_map } from './rest_api_model_manager.js'
 import { get_repo_pulls } from './utils/get_repo_pulls.js'
 
 const owner = 'neverbiasu'
 const repo = 'qiniu-cloud'
+const location = '🚀'
 
 const router = express.Router()
 
@@ -92,5 +94,19 @@ router.get('/readme', async (req, res) => {
 //     const user_talent_eval = new GenerateUserTalentEval(owner)
 //     res.json(await user_talent_eval.summaryByLLM())
 // })
+
+router.get('/project-nation', async (req, res) => {
+    const raw_data_getter = new RawDataGetter()
+    const followers = await raw_data_getter.getUserBasisInfo(owner, rest_api_url_map.username_followers)
+    const followings = await raw_data_getter.getUserBasisInfo(owner, rest_api_url_map.username_following)
+    const projectNation = new ProjectNation(location, followers, followings)
+
+    // console.log('Location:', location)
+    // console.log('Followers:', followers)
+    // console.log('Followings:', followings)
+
+    res.json(await projectNation.getNation())
+    console.log('Project Nation:', await projectNation.getNation(location, followers, followings))
+})
 
 export default router
