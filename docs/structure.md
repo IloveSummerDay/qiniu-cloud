@@ -1,13 +1,11 @@
 # 项目架构设计文档
 
-## 1. 项目概述
+## 项目概述
 
 **项目名称**：GitHub 开发者技术能力评估系统  
 **项目目标**：从 GitHub 获取开发者信息，计算其技术评分（TalentValue）并推测其所属国家（Nation），生成开发者的评估报告。前端展示开发者列表和详情，支持按 Nation 等筛选排序。
 
----
-
-## 2. 模块规格
+## 模块规格
 
 ![项目架构图](./structure.png)
 ### 数据获取模块
@@ -51,36 +49,6 @@
        $\text{Confidence} = \frac{\text{MaxCount}}{\text{TotalValid}}$
     - 阈值设置：设定置信度阈值（例如 0.3），如果置信度大于或等于阈值，则返回出现次数最多的国家，否则返回 `'N/A'`。
 
-### API 模块
-- **功能**：提供 RESTful API 接口，供前端调用以获取开发者评估数据。
-- **输入**：前端的请求参数（如搜索关键词、筛选条件等）。
-- **输出**：JSON 格式的开发者评估数据。
-- **核心逻辑**：
-  - **用户搜索 API**：
-    - 请求方法：`GET`
-    - 请求参数：`q`（搜索关键词）、`page`（页码）、`per_page`（每页结果数量）
-    - 响应数据格式：
-      ```json
-      {
-        "total_count": 100,
-        "users_info_list": [
-          {
-            "id": 1,
-            "login_name": "octocat",
-            "avatar_url": "https://github.com/images/error/octocat_happy.gif",
-            "html_url": "https://github.com/octocat",
-            "followers": 20,
-            "public_repos": 10,
-            "location": "San Francisco",
-            "email": "octocat@github.com",
-            "bio": "A mysterious octocat",
-            "blog": "https://github.blog",
-            "talent_value": 85
-          }
-        ]
-      }
-      ```
-
 ### 生成用户技术评估模块
 - **功能**：生成用户的技术能力评估报告。
 - **输入**：GitHub 用户名、TalentValue。
@@ -120,6 +88,45 @@
 
 6. **延迟执行**：
    - 处理速率限制时的延迟执行。
+  
+### API 模块
+- **功能**：提供 RESTful API 接口，供前端调用以获取开发者评估数据。
+- **输入**：前端的请求参数（如搜索关键词、筛选条件等）。
+- **输出**：JSON 格式的开发者评估数据。
+- **核心逻辑**：
+  - **用户搜索 API**：
+    - 请求方法：`GET`
+    - 请求参数：`q`（搜索关键词）、`page`（页码）、`per_page`（每页结果数量）
+    - 响应数据格式：
+      ```json
+      {
+        "total_count": 100,
+        "users_info_list": [
+          {
+            "id": 1,
+            "login_name": "octocat",
+            "avatar_url": "https://github.com/images/error/octocat_happy.gif",
+            "html_url": "https://github.com/octocat",
+            "followers": 20,
+            "public_repos": 10,
+            "location": "San Francisco",
+            "email": "octocat@github.com",
+            "bio": "A mysterious octocat",
+            "blog": "https://github.blog",
+            "talent_value": 85
+          }
+        ]
+      }
+      ```
+  - **用户技术评估 API**：
+    - 请求方法：`POST`
+    - 请求参数：username（GitHub 用户名）
+    - 响应数据格式：
+      ```json
+      {
+        "evaluation_report": "..."
+      }
+      ```
 
 ### 前端模块
 - **功能**：展示开发者列表、详情页和筛选功能。
@@ -129,9 +136,7 @@
   - **搜索和筛选**：根据用户名搜索，按 Nation、TalentValue 排序。
   - **评估展示**：分页显示开发者评估列表、TalentValue 评分及详情页。
 
----
-
-## 3. 模块分工
+## 模块分工
 
 - 张洛（组长）
 
@@ -144,4 +149,3 @@
     - 根据开发者的关系网络推测 Nation 及置信度。
     - 用户技术能力评估：对用户 Profile 和仓库数据进行评估，生成规范化的评估报告。
     - 优化项目逻辑、推荐并发请求方式、管理项目文档（Notion）。
-
