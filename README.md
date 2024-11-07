@@ -36,22 +36,55 @@
    cd qiniu-cloud
    ```
 
-2. 安装依赖：
-    ```bash
-    sh scripts/install.sh
-    ```
+2. 安装依赖
+      - 自动安装：
+         - Linux和MacOS：
+            ```bash
+            sh scripts/install.sh
+            ```
+
+         - Windows：
+            双击运行scripts目录下的install.bat文件。
+
+      - 手动安装：
+         ```bash
+         cd front
+         npm install
+         cd ../node
+         npm install
+         ```
 
 3. 运行项目：
-    - 运行前端：
-    ```bash
-    cd ../frount
-    npm start
-    ```
+   - 自动运行：
+      - Linux和MacOS：
+         ```bash
+         sh scripts/run.sh
+         ```
+      
+      - Windows:
+         双击运行scripts目录下的run.bat文件。
+
+   - 手动运行：
+     - 运行前端：
+     前端启动本地服务 http://localhost:5173
+      ```bash
+      cd ../frount
+      npm run dev
+      ```
+      点击进入 http://localhost:5173 本地网站
+
     - 运行后端：
-    ```bash
-    cd ../node
-    npm start
-    ```
+      后端启动本地服务 http://localhost:12306
+      ```bash
+      cd ../node
+      npm start
+      ```
+      当看到日志 Server is running on port 12306 时，即表示后端服务启动成功。
+
+### 使用说明
+
+前端页面中可根据 GitHub 开发者用户名进行搜索，按 Nation 等领域进行划分，所得开发者评估信息列表根据 TalentValue 降序排序。
 
 ### 联系方式
-如果有任何问题或建议，请联系项目维护者：1751162157@qq.com
+
+如果有任何问题或建议，请联系项目维护者：1923855461@qq.com，1751162157@qq.com 
