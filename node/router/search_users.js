@@ -1,5 +1,6 @@
 import express from 'express'
 import multer from 'multer'
+import { ProjectNation } from '../handlers/ProjectNation.js'
 import { RawDataGetter } from '../handlers/RawDataGetter.js'
 import { rest_api_url_map } from '../rest_api_model_manager.js'
 import { get_talent_value } from '../utils/get_talent_value.js'
@@ -68,23 +69,29 @@ router.post('/search-users-via-criteria', multer().none(), async (req, res) => {
             new Promise((resolve, reject) => {
                 raw_data_getter
                     .getUserBasisInfo(login_name, rest_api_url_map.username_users)
-                    .then((detail_user_info_res) => {
+                    .then(async (detail_user_info_res) => {
                         const detail_user_info = detail_user_info_res.data
-                        const followers = detail_user_info.followers
+                        const followers_num = detail_user_info.followers
                         const public_repos = detail_user_info.public_repos
-                        const location = detail_user_info.location
                         const email = detail_user_info.email
                         const bio = detail_user_info.bio
                         const blog = detail_user_info.blog
-                        get_talent_value(login_name, followers).then((talent_value) => {
+
+                        const raw_location = detail_user_info.location
+                        const followers_info_list = await raw_data_getter.getUserBasisInfo(login_name, rest_api_url_map.username_followers)
+                        const followings_info_list = await raw_data_getter.getUserBasisInfo(login_name, rest_api_url_map.username_following)
+                        const project_nation = new ProjectNation(raw_location, followers_info_list, followings_info_list)
+                        let nation_location = await project_nation.getNation()
+                        if (nation_location == 'Taiwan') nation_location = 'China'
+                        get_talent_value(login_name, followers_num).then((talent_value) => {
                             resolve({
                                 id: i,
                                 login_name,
                                 avatar_url,
                                 html_url,
-                                followers,
+                                followers_num,
                                 public_repos,
-                                location,
+                                nation_location,
                                 email,
                                 bio,
                                 blog,
@@ -99,15 +106,15 @@ router.post('/search-users-via-criteria', multer().none(), async (req, res) => {
         )
     }
 
-    const last_users_info_list = await Promise.all(last_users_info_promise_list)
+    let last_users_info_list = await Promise.all(last_users_info_promise_list)
 
     // desc
     last_users_info_list.sort((a, b) => b.talent_value - a.talent_value)
 
     // Nation
-    const nation = req.body.nation
-    if (nation == 'Nation') {
-    } else if (nation == 'Language') {
+    const nation_category = req.body.nation
+    if (nation_category !== '') {
+        last_users_info_list = last_users_info_list.filter((user) => user.nation_location == nation_category)
     }
 
     return res.json({

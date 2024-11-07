@@ -1,6 +1,6 @@
 import OpenAI from 'openai'
-import { RawDataGetter } from './RawDataGetter.js'
 import { rest_api_url_map } from '../rest_api_model_manager.js'
+import { RawDataGetter } from './RawDataGetter.js'
 
 export class GenerateUserTalentEval {
     constructor(username, talentValue = 30) {
@@ -22,7 +22,15 @@ export class GenerateUserTalentEval {
 
     async extractRepoList() {
         const repos = await this.rawDataGetter.getRepoList(this.username)
-        const filteredRepos = repos.filter((repo) => !repo.fork).map((repo) => repo.name)
+        let splice_end_index = 2
+        if (repos.length == 0) return []
+        if (repos.length == 1) splice_end_index = 1
+        const filteredRepos = repos
+            .filter((repo) => !repo.fork)
+            .sort((a, b) => b.stargazers_count - a.stargazers_count)
+            .slice(0, splice_end_index)
+            .map((repo) => repo.name)
+
         return filteredRepos
     }
 
@@ -124,10 +132,6 @@ export class GenerateUserTalentEval {
         this.blogUrl = await this.extractBlogUrl()
         this.repoInfo = await this.extractRepoInfo()
         this.langs = await this.extractLangs()
-        // console.log('repos:', this.repos)
-        // console.log('bio:', this.bio)
-        // console.log('repoInfo:', this.repoInfo)
-        // console.log('langs:', this.langs)
 
         const prompt = `请参考以下输出模板和开发者信息生成用户的技术能力评估报告：
                         输出模板：
@@ -195,9 +199,7 @@ export class GenerateUserTalentEval {
             enable_search: true,
             type: 'text',
         })
-        // for await (const chunk of completion) {
-        //     console.log(JSON.stringify(chunk))
-        // }
+        
         return completion
     }
 }

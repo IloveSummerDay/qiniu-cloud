@@ -7,7 +7,7 @@ export const get_talent_value = async (login_name, followers) => {
     const repo_list = await data_getter.getRepoList(login_name)
 
     console.log('========================')
-    console.log('get_talent_value.js - start calculating', repo_list.length)
+    console.log('get_talent_value.js - start calculating', repo_list.length, login_name)
 
     const repo_importance_value = await get_repo_importance_value(repo_list)
     const repo_contribution_value = await get_repo_contribution_value(login_name, repo_list)

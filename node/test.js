@@ -1,12 +1,13 @@
 import express from 'express'
-import { RawDataGetter } from './handlers/RawDataGetter.js'
+import { GenerateUserTalentEval } from './handlers/GenerateUserTalentEval.js'
 import { ProjectNation } from './handlers/ProjectNation.js'
+import { RawDataGetter } from './handlers/RawDataGetter.js'
 import { rest_api_url_map } from './rest_api_model_manager.js'
 import { get_repo_pulls } from './utils/get_repo_pulls.js'
 
 const owner = 'neverbiasu'
 const repo = 'qiniu-cloud'
-const location = '🚀'
+const location = 'london'
 
 const router = express.Router()
 
@@ -90,10 +91,10 @@ router.get('/readme', async (req, res) => {
     res.json(await raw_data_getter.getRepoREADME(owner, repo))
 })
 
-// router.get('/user-talent-eval', async (req, res) => {
-//     const user_talent_eval = new GenerateUserTalentEval(owner)
-//     res.json(await user_talent_eval.summaryByLLM())
-// })
+router.get('/user-talent-eval', async (req, res) => {
+    const user_talent_eval = new GenerateUserTalentEval(owner)
+    res.json(await user_talent_eval.summaryByLLM())
+})
 
 router.get('/project-nation', async (req, res) => {
     const raw_data_getter = new RawDataGetter()
@@ -106,7 +107,7 @@ router.get('/project-nation', async (req, res) => {
     // console.log('Followings:', followings)
 
     res.json(await projectNation.getNation())
-    console.log('Project Nation:', await projectNation.getNation(location, followers, followings))
+    // console.log('Project Nation:', await projectNation.getNation(location, followers, followings))
 })
 
 export default router
