@@ -69,8 +69,8 @@ npm install
 
 在运行项目之前，需要先填充 `node` 目录下的 `.env` 文件，设置以下环境变量：
 
-- `GITHUB_TOKEN`：从 [GithubDocs](https://docs.github.com/zh/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens) 获取。
-- `DASHSCOPE_API_KEY`：从 [阿里云百炼](https://bailian.console.aliyun.com/#/home) 获取。
+- `GITHUB_TOKEN`：从 [GithubDocs-创建 personal access token (classic)](https://docs.github.com/zh/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#%E5%88%9B%E5%BB%BA-personal-access-token-classic) 获取。
+- `DASHSCOPE_API_KEY`：从 [阿里云百炼](https://bailian.console.aliyun.com/#/home) 注册获取。
 
 ### 4. 运行项目
 
